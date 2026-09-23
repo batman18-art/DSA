@@ -1,26 +1,20 @@
 class Solution {
     public char findTheDifference(String s, String t) {
-        HashMap<Character,Integer> hm1=new HashMap<>();
-        for(int i=0;i<s.length();i++){
-            if(!hm1.containsKey(s.charAt(i))){
-                hm1.put(s.charAt(i),1);
+        HashMap<Character,Integer> hm1 = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            hm1.put(c, hm1.getOrDefault(c, 0) + 1);
+        }
+        for (char c : t.toCharArray()) {
+            if (!hm1.containsKey(c)) {
+                return c;
             }
-            else{
-                hm1.put(s.charAt(i),hm1.get(s.charAt(i))+1);
+            int newCount = hm1.get(c) - 1;
+            if (newCount == 0) {
+                hm1.remove(c);
+            } else {
+                hm1.put(c, newCount);
             }
         }
-        for(int i=0;i<s.length();i++){
-            if(!hm1.containsKey(t.charAt(i))){
-                return t.charAt(i);
-            }else{
-                if(hm1.get(t.charAt(i))==1){
-                    hm1.remove(t.charAt(i));
-                }
-                else{
-                    hm1.put(t.charAt(i),hm1.get(t.charAt(i))-1);
-                }
-            }
-        }
-        return t.charAt(t.length()-1);
+        throw new IllegalStateException("no difference found");
     }
 }
