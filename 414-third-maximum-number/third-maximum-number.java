@@ -22,7 +22,6 @@ class Solution {
         }
         for(int i=0;i<hs.size();i++){
             int getIndex=maxNum(nums,hs.size());
-            if(getIndex<0) break;
             if(hs.size()<3) return nums[getIndex];
            if(i==2){
             return nums[getIndex];
